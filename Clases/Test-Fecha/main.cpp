@@ -22,7 +22,7 @@
 using namespace std;
 
 
-/* ---------------------------- Código principal ---------------------------- */
+/* ---------------------------- Código Principal ---------------------------- */
 
 int main() {
     Fecha fDefault;

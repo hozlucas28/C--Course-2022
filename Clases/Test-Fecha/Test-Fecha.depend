@@ -1,7 +1,0 @@
-# depslib dependency file v1.0
-1661024845 source:c:\users\hozlu\documents\workspace\c--course-2022\lessons\test-fecha\main.cpp
-	<iostream>
-	"../Fecha/Fecha.h"
-
-1661024784 c:\users\hozlu\documents\workspace\c--course-2022\lessons\fecha\fecha.h
-

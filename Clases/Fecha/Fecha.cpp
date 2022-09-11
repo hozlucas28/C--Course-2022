@@ -1,51 +1,132 @@
-
-/* --------------------------------------------------------------------------
- * APUNTES:
- *          Los tipos y clases comienzan con la primer letra en may√∫scula.
- * 
- * 
- * IMPORTANTE:
- *             - Este archivo fue creado con: <New/Class...> desactivando
- *               el 'Hash destructor'.
--------------------------------------------------------------------------- */
-
-
-/* ------------------------------- Inclusiones ------------------------------ */
-
+#include "FechaInvalidaException.h"
 #include "Fecha.h"
 
 
-/* --------------------------- Funciones Prototipo -------------------------- */
+const int Fecha::cdm[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-Fecha::Fecha() {
-    diaRel = 1;
-};
+const int Fecha::acumDiasMes[14] = {0, 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
 
-Fecha::Fecha(int dia, int mes, int anio) {
-    diaRel = dmADiaRel(dia, mes, anio); //Funci√≥n imaginaria, de momento.
-};
+const int Fecha::acumDiasMesBisiesto[14] = {0, 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366};
 
-Fecha Fecha::sumarDias(int dias) const {
-    Fecha fechaSuma;
-    fechaSuma.diaRel = diaRel + dias;
+
+Fecha::Fecha()
+{
+    this->diaRel = 1;
+}
+
+
+Fecha::Fecha(int dia, int mes, int anio)
+{
+    setDma(dia, mes, anio);
+}
+
+
+Fecha Fecha::operator +(int dias) const
+{
+    Fecha fechaSuma(*this); // Disponible por defecto, NO es necesario implementarlo.
+    fechaSuma.diaRel += dias;
+
+//    Fecha fechaSuma;
+//    fechaSuma.diaRel = this->diaRel + dias;
+
     return fechaSuma;
-};
+}
 
-Fecha Fecha::restarDias(int dias) const {
-    Fecha fechaSuma;
-    fechaSuma.diaRel = diaRel - dias;
-    return fechaSuma;
-};
 
-int Fecha::diferenciaEnDias(Fecha fecha) const {
-    return diaRel - fecha.diaRel;
-};
+Fecha Fecha::operator -(int dias) const
+{
+    Fecha fechaResta(*this);
+    fechaResta.diaRel -= dias;
 
-//Tomamos como primer d√≠a de la semana al lunes, siendo la fecha base: 1/1/1601.
-int Fecha::diaDeLaSemana() const {
+    if(fechaResta.diaRel < 1)
+        throw FechaInvalidaException("Fecha inv·lida: Quiere restar m·s dÌas de los permitidos.");
+
+    return fechaResta;
+}
+
+
+int Fecha::operator -(const Fecha& fecha) const
+{
+    return this->diaRel - fecha.diaRel;
+}
+
+
+Fecha& Fecha::operator ++() // Preincremento
+{
+    ++this->diaRel;
+    return *this;
+}
+
+
+Fecha Fecha::operator ++(int) // Posincremento
+{
+    Fecha fechaAnterior(*this);
+    ++this->diaRel;
+    return fechaAnterior;
+}
+
+
+// DÌa de la semana, el primer dÌa es el lunes y el ˙ltimo es el domingo. La fecha base es 1/1/1601.
+int Fecha::diaDeLaSemana() const
+{
     return (diaRel - 1) % 7;
-};
+}
 
-Fecha::dmADiaRel(int dia, int mes, int anio) const {
-    return 1;
-};
+
+void Fecha::setDma(int dia, int mes, int anio)
+{
+    if(!esFechaValida(dia, mes, anio))
+         throw FechaInvalidaException("Fecha inv·lida");
+
+    int cantAnios = anio - ANIO_BASE;
+    int diasAniosCompl = cantAnios * 365 + cantAnios / 4 - cantAnios / 100 + cantAnios / 400;
+    this->diaRel = diasAniosCompl + diaDelAnio(dia, mes, anio);
+}
+
+
+void Fecha::getDma(int& dia, int& mes, int& anio) const
+{
+    int cantAniosComplCalc = this->diaRel / 365;
+
+    int diasAniosComplCalc;
+
+    diasAniosComplCalc =
+        cantAniosComplCalc * 365 + cantAniosComplCalc / 4 - cantAniosComplCalc / 100 + cantAniosComplCalc / 400;
+
+    while(diasAniosComplCalc >= this->diaRel)
+    {
+        cantAniosComplCalc--;
+        diasAniosComplCalc =
+            cantAniosComplCalc * 365 + cantAniosComplCalc / 4 - cantAniosComplCalc / 100 + cantAniosComplCalc / 400;
+    }
+
+    anio = cantAniosComplCalc + ANIO_BASE;
+
+    int diaDelAnio = this->diaRel - diasAniosComplCalc;
+
+    diaDelAnioADiaMes(diaDelAnio, anio, dia, mes);
+}
+
+
+void Fecha::diaDelAnioADiaMes(int diaDelAnio, int anio, int& dia, int& mes)
+{
+    const int* acumDiasMes = esBisiesto(anio) ? acumDiasMesBisiesto : Fecha::acumDiasMes;
+
+    int m = 1;
+    while(diaDelAnio > acumDiasMes[m])
+        m++;
+
+    m--;
+    mes = m;
+
+    dia = diaDelAnio - acumDiasMes[m];
+}
+
+
+ostream& operator <<(ostream& os, const Fecha& fecha)
+{
+    int dia, mes, anio;
+    fecha.getDma(dia, mes, anio);
+    os << dia << '/' << mes << '/' << anio;
+    return os;
+}

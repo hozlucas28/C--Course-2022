@@ -12,12 +12,12 @@ using namespace std;
 int main() {
     system ("chcp 65001 > nil");
     
-    int number, *dirNumber; //El puntero le indica al compilador que guardara una dirección.
+    int numero, *dirNumero; //El puntero le indica al compilador que guardara una dirección.
 
-    number = 20;
-    dirNumber = &number;
+    numero = 20;
+    dirNumero = &numero;
 
-    cout << "Numero: " << *dirNumber << endl;
-    cout << "Dirección de memoria: " << dirNumber << endl;
+    cout << "Numero: " << *dirNumero << endl;
+    cout << "Dirección de memoria: " << dirNumero << endl;
     return 0;
 }

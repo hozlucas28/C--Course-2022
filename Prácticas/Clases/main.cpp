@@ -1,6 +1,16 @@
 
+/* ------------------------------- inclusiones ------------------------------ */
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+//Propias.
 #include "Rectangulo.cpp"
 
+
+
+/* ---------------------------- Código Principal ---------------------------- */
 
 int main () {
     system ("chcp 65001 > nil");

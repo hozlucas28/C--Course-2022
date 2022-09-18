@@ -1,6 +1,11 @@
 
+/* ------------------------------- Inclusiones ------------------------------ */
+
 #include "Persona.h"
 
+
+
+/* ------------------------- Funciones Desarrolladas ------------------------ */
 
 //Constructor - Inicializa los atributos.
 Persona::Persona(int _edad, string _nombre) {

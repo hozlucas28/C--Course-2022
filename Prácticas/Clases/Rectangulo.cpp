@@ -1,6 +1,11 @@
 
+/* ------------------------------- Inclusiones ------------------------------ */
+
 #include "Rectangulo.h"
 
+
+
+/* ------------------------- Funciones Desarrolladas ------------------------ */
 
 //Constructor.
 Rectangulo::Rectangulo(int _largo, int _ancho) {

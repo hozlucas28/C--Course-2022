@@ -1,13 +1,11 @@
 
-#include <iostream>
-#include <stdlib.h>
-using namespace std;
-
-
-
 #ifndef PERSONA_H
+    /* ------------------------------ Definiciones ------------------------------ */
+
     #define PERSONA_H
 
+
+    /* --------------------------------- Clases --------------------------------- */
 
     class Persona {
         private: //Atributos.

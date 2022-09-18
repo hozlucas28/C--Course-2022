@@ -1,6 +1,16 @@
 
+/* ------------------------------- Inclusiones ------------------------------ */
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+//Propias.
 #include "Persona.cpp"
 
+
+
+/* ---------------------------- Código Principal ---------------------------- */
 
 int main () {
     //Primer método - Creación de un objeto.

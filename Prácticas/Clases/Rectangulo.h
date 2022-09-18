@@ -1,14 +1,11 @@
 
-#include <iostream>
-#include <stdlib.h>
-using namespace std;
-
-
-
 #ifndef RECTANGULO_H
+    /* ------------------------------ Definiciones ------------------------------ */
+
     #define RECTANGULO_H
 
 
+    /* --------------------------------- Clases --------------------------------- */
     class Rectangulo {
         private: //Atributos.
             int largo;

@@ -25,6 +25,5 @@ int main () {
     p2.correr();
     p3.leer();
     p3.correr();
-
     return 0;
 }

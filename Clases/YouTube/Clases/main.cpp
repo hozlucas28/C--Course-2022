@@ -12,7 +12,7 @@ using namespace std;
 
 /* ---------------------------- Código Principal ---------------------------- */
 
-int main () {
+int main () { 
     //Primer método - Creación de un objeto.
     Persona p1 = Persona(21, "Alexis");
 

@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+//Propias.
 #include "main.h"
 #include "funciones.h"
 

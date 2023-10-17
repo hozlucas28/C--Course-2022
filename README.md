@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/88015479/210181688-12750d84-f044-40c2-99fe-41fda158b0ad.png" width="250">
+    <img src="./.github/c++-logo.png" width="250">
 </p>
 
 <h2>
